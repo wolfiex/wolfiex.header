@@ -166,7 +166,7 @@
     {href: 'https://showcase.' + host, name: 'Showcase',icon:'collections_bookmark'},
     {href: 'https://medium.' + host, name: 'Published-Articles',icon:'history_edu'},
     {href: 'https://research.' + host, name: 'Academic',icon:'school',disabled:true},
-    {href: 'https://coaching.' + host, name: 'Adventure-Instrucing',icon:'rocket_launch'},
+    {href: 'https://coaching.' + host, name: 'Adventure-Instructing',icon:'rocket_launch'},
     {href: 'https://art.' + host, name: 'Art',icon:
 'palette',disabled:true},
 
