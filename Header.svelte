@@ -1,8 +1,18 @@
 
+<svelte:window bind:innerWidth={w} />
+<svelte:head>
+  <!-- <link rel="preload" href="/Datalegreya-Dot.otf" as="font" type="font/otf" crossorigin> -->
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+  />
+</svelte:head>
+
 <style>
-    @font-face {
+
+@font-face {
     font-family: 'Datalegreya-Dot';
-    src: url('/Datalegreya-Dot.otf');
+    src: url('/Datalegreya-Dot.woff2');
     font-weight: normal;
     font-style: normal;
   }
@@ -24,8 +34,11 @@
   import './css/header.css';
 
   
+
+  
   // header style
-  export let style = 'transparent'
+  export let style = 'transparent';
+  export let loading=false;
 
   console.error(style)
   switch(style) {
@@ -36,7 +49,7 @@
     style = "background: rgb(254, 254, 254,.7);color:#222;backdrop-filter: blur(10px)";
     break;
   case "transparent":
-    style = 'background: rgba(255,255,255,.051);backdrop-filter: blur(10px);color:rgb(214, 214, 214)'
+    style = 'background: rgba(255,255,255,.051);backdrop-filter: blur(5px);color:rgb(214, 214, 214)'
     break;
   }
 
@@ -76,6 +89,23 @@
       // console.log(window.pageYOffset > sticky, header.classList);
     }
 
+
+    document.fonts.ready.then(function () {
+  // alert('All fonts in use by visible text have loaded.');
+  //  alert('DLG loaded? ' + document.fonts.check('1em Datalegreya-Dot'));  // true
+
+  if (document.fonts.check('1em Datalegreya-Dot')){
+    loading = true;
+    console.warn('finished loading fonts')
+
+  }
+});
+
+// document.fonts.onloadingdone = function (fontFaceSetEvent) {
+//    alert('onloadingdone we have ' + fontFaceSetEvent.fontfaces.length + ' font faces loaded');
+// };
+
+
     // make the string html compatible
     var el = document.getElementById('logo');
     el.innerText = el.textContent =
@@ -85,13 +115,6 @@
   });
 </script>
 
-<svelte:window bind:innerWidth={w} />
-<svelte:head>
-  <link
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
-  />
-</svelte:head>
 <main>
   <div class="top-container">
     <slot />
@@ -99,7 +122,7 @@
   <header >
     <div class="sticky-nav" id="mainHeader" style = {style}>
       <a href="https://danielellisresearch.com" >
-      <div id="logo" class="logo">
+      <div id="logo" class="logo"> Daniel Ellis Research
       </div>
     </a>
 

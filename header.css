@@ -1,7 +1,7 @@
-
-  /* @font-face {
+/* 
+  @font-face {
     font-family: 'Datalegreya-Dot';
-    src: url('/Datalegreya-Dot.otf');
+    src: local('./Datalegreya-Dot.otf');
     font-weight: normal;
     font-style: normal;
   } */
