@@ -67,7 +67,7 @@
     break;
   case "transparent":
     bstyle = 'background: rgba(255,255,255,.051);backdrop-filter: blur(10px);'
-    fstyle = "color:rgb(214, 214, 214)"
+    fstyle = 'color:white;';//"color:rgb(214, 214, 214)"
     break;
   }
 

@@ -11,7 +11,6 @@
 
   .logo {
     font-family: Datalegreya-Dot;
-    font-size: 140%;
     -webkit-font-feature-settings: 'kern' on, 'liga' on, 'calt' on;
     -moz-font-feature-settings: 'kern' on, 'liga' on, 'calt' on;
     -webkit-font-feature-settings: 'kern' on, 'liga' on, 'calt' on;
@@ -28,7 +27,13 @@
   }
 
   #logo {
-    font-size: 130%;
+    font-family: Datalegreya-Dot;
+    font-size: 3.5em !important;
+    margin:auto;
+    font-weight: 800;
+    vertical-align: top;
+    bottom:-5px;
+    position:absolute;
   }
   
   danheader {
@@ -81,11 +86,11 @@ a > span.material-symbols-outlined{
     
     /* position: relative; */
   }
-  .sticky-nav a #logo{
+  /* .sticky-nav a #logo{
     font-family: Datalegreya-Dot;
     font-size: 250% !important;
-    /* color:white; */
-  }
+    color:white;
+  } */
 
 
 
