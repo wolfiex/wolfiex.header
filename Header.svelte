@@ -49,7 +49,7 @@
     style = "background: rgb(254, 254, 254,.7);color:#222;backdrop-filter: blur(10px)";
     break;
   case "transparent":
-    style = 'background: rgba(255,255,255,.051);backdrop-filter: blur(5px);color:rgb(214, 214, 214)'
+    style = 'background: rgba(255,255,255,.011);backdrop-filter: blur(5px);color:rgb(214, 214, 214)'
     break;
   }
 
