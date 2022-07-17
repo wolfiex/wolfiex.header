@@ -10,6 +10,7 @@
   export let loaded = false;
   let scrollY = 0;
   let header, sticky;
+  let open=true;
 
   var fstyle = '#222';
   var bstyle = 'whitesmoke';
@@ -47,7 +48,7 @@
     },
     {
       href: 'https://medium.' + host,
-      name: 'Published-Articles',
+      name: 'Published Articles',
       icon: 'history_edu',
     },
     {
@@ -58,10 +59,10 @@
     },
     {
       href: 'https://coaching.' + host,
-      name: 'Adventure-Instructing',
+      name: 'Adventure / Instructing',
       icon: 'rocket_launch',
     },
-    {href: 'https://art.' + host, name: 'Art', icon: 'palette', disabled: true},
+    {href: 'https://showcase.' + host, name: 'Art', icon: 'palette', disabled: false},
 
     {
       href: 'mailto:contact@danielellisresearch.com?subject=Website Query"',
@@ -87,15 +88,18 @@
 
 <svelte:window bind:innerWidth={w} bind:innerHeight={h} bind:scrollY />
 <svelte:head>
+  <title>Daniel Ellis Research</title>
   <link
     rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
   />
 </svelte:head>
 <main>
-  <div class="top-container">
+
+  <div class="top-container" style='max-height:700px;overflow:clip;'>
     <slot />
   </div>
+  
   <Nav {menu} open={false} />
   <danheader>
     <div
@@ -139,6 +143,7 @@
           on:click={function (d) {
             document.getElementById('nav-menu').classList.toggle('active');
             document.getElementById('mainBox').classList.toggle('fixed');
+            open = document.getElementById('nav-menu').classList.contains('active')
             console.error('ppp', document.getElementById('nav-menu').classList);
           }}
           ><span class="material-symbols-outlined">
@@ -165,7 +170,7 @@
   }
 
   danheader {
-    z-index: -1 !important;
+    z-index: 999999 !important;
   }
   :global(a#nav-toggles) {
     backdrop-filter: blur(10px);
@@ -180,7 +185,7 @@
   :global(.sticky) {
     position: fixed !important;
     display: block !important;
-    z-index: -1 !important;
+    z-index: 9999 !important;
     left: 0 !important;
     top: 0 !important;
     /* filter:invert(1)!important; */
