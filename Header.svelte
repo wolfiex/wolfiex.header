@@ -81,7 +81,7 @@
   });
 
   let mobile, h;
-  $: mobile = w < 800;
+  $: mobile = w < 650;
   $: console.log('m', mobile, w, h, w < 800, h < 600);
 </script>
 
@@ -105,12 +105,17 @@
       bind:this={header}
       style={'height:3.5em;' + bstyle}
     >
-      <a href="https://danielellisresearch.com" style="float:left;display:block!important;" class:head={mobile}>
+      <a href="https://danielellisresearch.com" style="float:left!important;" class:head={mobile}>
         <div id="logo" class="logo" style={fstyle}>Daniel Ellis Research</div>
       </a>
 
+      {#if mobile}
+      <br><br>
+      {/if}
+
+
       <!-- {#if w > 660} -->
-      <div style={'float:right;display:block;' + bstyle} class:footer={mobile}>
+      <div style={'float:right;display:inline-block;' + bstyle} class:footer={mobile}>
         {#each menu as link}
           <Button
             style={'width:auto;' + fstyle}
@@ -187,6 +192,7 @@
     display: block!important;
     position: fixed !important;
     bottom: -3.5em !important;
+    /* bottom:.5em!important; */
     width:100%!important;
     float:right!important;
     margin-left:auto;
@@ -197,5 +203,5 @@
   content: "\A\A";
   white-space: pre-lines;
 }
-  /* .head {top:0px;float:right} */
+  .head {top:2px!important;position:absolute;display:block;width:100%}
 </style>
