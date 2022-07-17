@@ -3,16 +3,13 @@
   import {onMount} from 'svelte';
   import {Button, ButtonSet} from 'carbon-components-svelte';
   import 'carbon-components-svelte/css/g90.css';
-  // import './css/header.css';
   import Nav from './Nav.svelte';
 
   // header style
   export let style = 'transparent';
   export let loaded = false;
-  let scrollY=0;
-  let header,sticky;
-  
-
+  let scrollY = 0;
+  let header, sticky;
 
   var fstyle = '#222';
   var bstyle = 'whitesmoke';
@@ -21,7 +18,7 @@
   switch (style) {
     case 'dark':
       bstyle = 'background: rgb(38, 41, 46)!important;';
-      fstyle = 'color:rgb(214, 214, 214)!important';
+      fstyle = 'color:rgb(214, 214, 214)!important;';
       break;
     case 'light':
       bstyle =
@@ -30,12 +27,12 @@
       break;
     case 'active':
       bstyle =
-        'background:whitesmoke!important;border-top: .2px solid gray;backdrop-filter: blur(10px);margin-top:0em!important';
+        'background:whitesmoke!important;border-top: .2px solid gray;backdrop-filter: blur(10px);margin-top:0em!important;';
       fstyle = 'color:#222;';
       break;
     case 'transparent':
       bstyle = 'background: rgba(255,255,255,.02);backdrop-filter: blur(5px);';
-      fstyle = 'color:rgb(214, 214, 214)';
+      fstyle = 'color:rgb(214, 214, 214);';
       break;
   }
 
@@ -46,7 +43,7 @@
     {
       href: 'https://showcase.' + host,
       name: 'Showcase',
-      icon: 'collections_bookmark',
+      icon: 'reviews',
     },
     {
       href: 'https://medium.' + host,
@@ -73,23 +70,22 @@
     }, // cv
   ];
 
-
-
   onMount(() => {
-
-    console.log(header)
+    console.log(header);
     sticky = header.offsetTop;
 
     var el = document.getElementById('logo');
-        el.innerText = el.textContent =
-          '[]{[--]}  d|2a|1n|3i|2e|2l|1 |1e|2l|0l|3i|1[++]s|1   [ []]';
-        // '[]{} §0d|3a|1n|0[--]i|2e|1l|1 |0e|2l|1l|3i|1s|3[+]';
+    el.innerText = el.textContent =
+      '[]{[--]}  d|2a|1n|3i|2e|2l|1 |1e|2l|0l|3i|1[++]s|1   [ []]';
+    // '[]{} §0d|3a|1n|0[--]i|2e|1l|1 |0e|2l|1l|3i|1s|3[+]';
   });
 
-
+  let mobile, h;
+  $: mobile = w < 800;
+  $: console.log('m', mobile, w, h, w < 800, h < 600);
 </script>
 
-<svelte:window bind:innerWidth={w} bind:scrollY />
+<svelte:window bind:innerWidth={w} bind:innerHeight={h} bind:scrollY />
 <svelte:head>
   <link
     rel="stylesheet"
@@ -100,50 +96,55 @@
   <div class="top-container">
     <slot />
   </div>
+  <Nav {menu} open={false} />
   <danheader>
-    <div class="sticky-nav" class:sticky={scrollY>sticky} id="mainHeader" bind:this={header} style={'height:3.5em;' + bstyle}>
-      <a href="https://danielellisresearch.com">
-        <div id="logo" class="logo" style={fstyle} >Daniel Ellis Research</div>
+    <div
+      class="sticky-nav"
+      class:sticky={scrollY > sticky}
+      id="mainHeader"
+      bind:this={header}
+      style={'height:3.5em;' + bstyle}
+    >
+      <a href="https://danielellisresearch.com" style="float:left;display:block!important;" class:head={mobile}>
+        <div id="logo" class="logo" style={fstyle}>Daniel Ellis Research</div>
       </a>
 
-      {#if w > 660}
-        <div style={'float:right;display:inline-block' + bstyle}>
-          {#each menu as link}
-            <Button
-              style={'width:auto;' + fstyle}
-              kind="ghost"
-              iconDescription={link.name}
-              href={link.href}
-              disabled={link.disabled}
-              ><span class="material-symbols-outlined">
-                {link.icon || 'rocket_launch'}
-                <!-- rocket_launch -->
-              </span></Button
-            >
-          {/each}
-
+      <!-- {#if w > 660} -->
+      <div style={'float:right;display:block;' + bstyle} class:footer={mobile}>
+        {#each menu as link}
           <Button
-            style="width:auto;"
+            style={'width:auto;' + fstyle}
             kind="ghost"
-            iconDescription="Toggle Nav"
-            href={'#'}
-            id="nav-toggles"
-            on:click={function (d) {
-              document.getElementById('nav-menu').classList.toggle('active');
-              console.error(
-                'ppp',
-                document.getElementById('nav-menu').classList
-              );
-            }}
+            iconDescription={link.name}
+            href={link.href}
+            disabled={link.disabled}
             ><span class="material-symbols-outlined">
-              {'menu'}
+              {link.icon || 'rocket_launch'}
               <!-- rocket_launch -->
             </span></Button
           >
-        </div>
+        {/each}
 
-        <!-- {:else} -->
-      {/if}
+        <Button
+          style="width:auto;"
+          kind="ghost"
+          iconDescription="Toggle Nav"
+          href={'#'}
+          id="nav-toggles"
+          on:click={function (d) {
+            document.getElementById('nav-menu').classList.toggle('active');
+            document.getElementById('mainBox').classList.toggle('fixed');
+            console.error('ppp', document.getElementById('nav-menu').classList);
+          }}
+          ><span class="material-symbols-outlined">
+            {'menu'}
+            <!-- rocket_launch -->
+          </span></Button
+        >
+      </div>
+
+      <!-- {:else} -->
+      <!-- {/if} -->
 
       <!-- <Nav menu={menu}/> -->
     </div>
@@ -158,6 +159,9 @@
     font-style: normal;
   }
 
+  danheader {
+    z-index: -1 !important;
+  }
   :global(a#nav-toggles) {
     backdrop-filter: blur(10px);
     border-left: 3px double rgba(245, 245, 245, 0.226);
@@ -171,10 +175,27 @@
   :global(.sticky) {
     position: fixed !important;
     display: block !important;
-    z-index: 99999 !important;
+    z-index: -1 !important;
     left: 0 !important;
     top: 0 !important;
     /* filter:invert(1)!important; */
     /* width: 100%; */
   }
+
+  .footer {
+    clear: both!important;
+    display: block!important;
+    position: fixed !important;
+    bottom: -3.5em !important;
+    width:100%!important;
+    float:right!important;
+    margin-left:auto;
+    right: 2px!important;
+  }
+
+  .footer::before {
+  content: "\A\A";
+  white-space: pre-lines;
+}
+  /* .head {top:0px;float:right} */
 </style>

@@ -4,8 +4,6 @@ a:focus{outline: -webkit-focus-ring-color auto 5px; outline-offset: -2px;}
 
 a:not(:hover){text-decoration: none;}
 
-
-
 h4{font-size: 17.5px;}
 
 header{width: 100%; z-index: 99;}
@@ -15,34 +13,6 @@ header #logo{color: rgb(255, 255, 255); float: left; padding: 15px 0px; margin-l
 header #logo a{width: 96px; height: 30px; text-indent: -9999px; display: block; opacity: 1; transition: opacity 0.25s ease-in-out 0s;
     }
 
-header #logo:hover{opacity: 1;font-size:141%}
-
 header .sticky-nav{position: relative; width: 100%; height: 60px; ; z-index: 1001; box-shadow: rgba(0, 0, 0, 0.25) 0px 1px 1px;}
 
-header .dark{
-    background: rgb(38, 41, 46)
-}
-header .light{
-    background: whitesmoke
-}
-
-li{line-height: 20px;}
-
-nav#menu{float: right; margin-right: 20px;}
-
-nav#menu #menu-nav{margin: 0px; padding: 0px;}
-
-nav#menu #menu-nav li{list-style: none; display: inline-block; margin-left: 30px;}
-
-nav#menu #menu-nav li a{color: rgb(255, 255, 255); font-size: 16px; font-weight: 300; line-height: 60px; display: block; text-transform: uppercase;}
-
-nav#menu #menu-nav li.current a, nav#menu #menu-nav li a:hover{color: rgb(222, 94, 96);}
-
-nav#menu #menu-nav li:first-child{margin-left: 0px;}
-
-ul{list-style: circle;}
-
-ul ul, ul ol, ol ol, ol ul{margin-bottom: 0px;}
-
-ul, ol{padding: 0px; margin: 0px 0px 10px 25px;}
 

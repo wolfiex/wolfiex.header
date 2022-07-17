@@ -65,7 +65,8 @@
     position:absolute;
   }
 a div#logo:hover{
-  font-size: 3.1em!important;
+  /* font-size: 3.1em!important; */
+  color:rgb(4, 183, 240)!important;
 }
 
 
