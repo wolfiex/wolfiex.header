@@ -61,6 +61,7 @@
       href: 'https://coaching.' + host,
       name: 'Adventure / Instructing',
       icon: 'rocket_launch',
+      disabled: true,
     },
     {href: 'https://showcase.' + host, name: 'Art', icon: 'palette', disabled: false},
 
