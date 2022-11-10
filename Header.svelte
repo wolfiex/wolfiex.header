@@ -10,12 +10,14 @@
   export let loaded = false;
   let scrollY = 0;
   let header, sticky;
-  let open=true;
+  let open = true;
 
   var fstyle = '#222';
   var bstyle = 'whitesmoke';
 
-  console.error(style);
+  let w,h,mobile
+
+
   switch (style) {
     case 'dark':
       bstyle = 'background: rgb(38, 41, 46)!important;';
@@ -37,7 +39,7 @@
       break;
   }
 
-  let w;
+
   const host = 'danielellisresearch.com';
   const menu = [
     // {href:'#', name:''},
@@ -63,7 +65,12 @@
       icon: 'rocket_launch',
       disabled: true,
     },
-    {href: 'https://showcase.' + host, name: 'Art', icon: 'palette', disabled: false},
+    {
+      href: 'https://showcase.' + host,
+      name: 'Art',
+      icon: 'palette',
+      disabled: false,
+    },
 
     {
       href: 'mailto:contact@danielellisresearch.com?subject=Website Query"',
@@ -71,9 +78,11 @@
       icon: 'mail',
     }, // cv
   ];
-
+  
   onMount(() => {
-    console.log(header);
+    mobile = navigator.userAgentData.mobile;
+    // console.error(mobile,'mobile')
+    // console.log(header);
     sticky = header.offsetTop;
 
     var el = document.getElementById('logo');
@@ -82,25 +91,27 @@
     // '[]{} §0d|3a|1n|0[--]i|2e|1l|1 |0e|2l|1l|3i|1s|3[+]';
   });
 
-  let mobile, h;
-  $: mobile = w < 650;
-  $: console.log('m', mobile, w, h, w < 800, h < 600);
+
 </script>
 
-<svelte:window bind:innerWidth={w} bind:innerHeight={h} bind:scrollY />
 <svelte:head>
+  <!-- load the font early  -->
+  <link rel="preload" href="/Datalegreya-Dot.woff2" as="Datalegreya-Dot" type="font/woff" crossorigin />
+
   <title>Daniel Ellis Research</title>
   <link
     rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
   />
 </svelte:head>
-<main>
 
-  <div class="top-container" style='max-height:700px;overflow:clip;'>
+<svelte:window bind:innerWidth={w} bind:innerHeight={h} bind:scrollY />
+
+<main>
+  <div class="top-container" style="max-height:700px;overflow:clip;">
     <slot />
   </div>
-  
+
   <Nav {menu} open={false} />
   <danheader>
     <div
@@ -110,17 +121,21 @@
       bind:this={header}
       style={'height:3.5em;' + bstyle}
     >
-      <a href="https://danielellisresearch.com" style="float:left!important;" class:head={mobile}>
-        <div id="logo" class="logo" style={fstyle}>Daniel Ellis Research</div>
+      <a
+        href="https://danielellisresearch.com"
+        style="float:left!important;"
+        class:head={mobile}
+      >
+        <div id="logo" class="logo" class:top={mobile} style={fstyle}>Daniel Ellis Research</div>
       </a>
 
-      {#if mobile}
-      <br><br>
-      {/if}
 
 
       <!-- {#if w > 660} -->
-      <div style={'float:right;display:inline-block;' + bstyle} class:footer={mobile}>
+      <div
+        style={'float:right;display:inline-block;' + bstyle}
+        class:footer={mobile}
+      >
         {#each menu as link}
           <Button
             style={'width:auto;' + fstyle}
@@ -135,6 +150,7 @@
           >
         {/each}
 
+        {#if !mobile}
         <Button
           style="width:auto;"
           kind="ghost"
@@ -144,14 +160,18 @@
           on:click={function (d) {
             document.getElementById('nav-menu').classList.toggle('active');
             document.getElementById('mainBox').classList.toggle('fixed');
-            open = document.getElementById('nav-menu').classList.contains('active')
-            console.error('ppp', document.getElementById('nav-menu').classList);
+            open = document
+              .getElementById('nav-menu')
+              .classList.contains('active');
+            // console.error('ppp', document.getElementById('nav-menu').classList);
           }}
           ><span class="material-symbols-outlined">
             {'menu'}
             <!-- rocket_launch -->
           </span></Button
         >
+ 
+        {/if}
       </div>
 
       <!-- {:else} -->
@@ -172,6 +192,12 @@
 
   danheader {
     z-index: 999999 !important;
+  }
+
+  .top{
+    top:-1.2em!important;
+    position:absolute;
+    display:block;
   }
   :global(a#nav-toggles) {
     backdrop-filter: blur(10px);
@@ -194,20 +220,26 @@
   }
 
   .footer {
-    clear: both!important;
-    display: block!important;
+    clear: both !important;
+    display: block !important;
     position: fixed !important;
-    bottom: -3.5em !important;
+    
+    bottom: calc(100vh-3.5em) !important;
     /* bottom:.5em!important; */
-    width:100%!important;
-    float:right!important;
-    margin-left:auto;
-    right: 2px!important;
+    width: 100% !important;
+    float: right !important;
+    margin-left: auto;
+    right: 2px !important;
   }
 
   .footer::before {
-  content: "\A\A";
-  white-space: pre-lines;
-}
-  .head {top:2px!important;position:absolute;display:block;width:100%}
+    content: '\A\A';
+    white-space: pre-lines;
+  }
+  .head {
+    top: 2px !important;
+    position: absolute;
+    display: block;
+    width: 100%;
+  }
 </style>
