@@ -1,9 +1,11 @@
 <script>
   import './header.css';
   import {onMount} from 'svelte';
-  import {Button, ButtonSet} from 'carbon-components-svelte';
+  import {Button, ButtonSet, Link} from 'carbon-components-svelte';
   import 'carbon-components-svelte/css/g90.css';
   import Nav from './Nav.svelte';
+
+
 
   // header style
   export let style = 'transparent';
@@ -77,7 +79,9 @@
       name: ' Contact',
       icon: 'mail',
     }, // cv
-  ];
+  ]
+
+
   
   onMount(() => {
     mobile = navigator.userAgentData.mobile;
@@ -96,13 +100,14 @@
 
 <svelte:head>
   <!-- load the font early  -->
-  <link rel="preload" href="/Datalegreya-Dot.woff2" as="Datalegreya-Dot" type="font/woff" crossorigin />
+  <link rel="preload" href="/Datalegreya-Dot.woff2"  type="font/woff" crossorigin/>
+  <!-- as="Datalegreya-Dot" -->
 
   <title>Daniel Ellis Research</title>
-  <link
+  <!-- <link
     rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
-  />
+  /> -->
 </svelte:head>
 
 <svelte:window bind:innerWidth={w} bind:innerHeight={h} bind:scrollY />
@@ -143,10 +148,10 @@
             iconDescription={link.name}
             href={link.href}
             disabled={link.disabled}
-            ><span class="material-symbols-outlined">
-              {link.icon || 'rocket_launch'}
+            ><img src={'/icons/'+link.icon+'.svg'} class="material-symbols-outlined">
+              <!-- {link.icon || 'rocket_launch'} -->
               <!-- rocket_launch -->
-            </span></Button
+  </Button
           >
         {/each}
 
@@ -165,10 +170,10 @@
               .classList.contains('active');
             // console.error('ppp', document.getElementById('nav-menu').classList);
           }}
-          ><span class="material-symbols-outlined">
-            {'menu'}
+          ><img class="material-symbols-outlined" src='/icons/menu.svg' style='stroke: #78a9ff!important;'>
+            
             <!-- rocket_launch -->
-          </span></Button
+         </Button
         >
  
         {/if}
@@ -241,5 +246,11 @@
     position: absolute;
     display: block;
     width: 100%;
+  }
+
+  .material-symbols-outlined{
+    fill:red;
+    width:100%;
+    height:24px;
   }
 </style>
