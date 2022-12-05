@@ -5,8 +5,6 @@
   import 'carbon-components-svelte/css/g90.css';
   import Nav from './Nav.svelte';
 
-
-
   // header style
   export let style = 'transparent';
   export let loaded = false;
@@ -17,8 +15,7 @@
   var fstyle = '#222';
   var bstyle = 'whitesmoke';
 
-  let w,h,mobile
-
+  let w, h, mobile;
 
   switch (style) {
     case 'dark':
@@ -40,7 +37,6 @@
       fstyle = 'color:rgb(214, 214, 214);';
       break;
   }
-
 
   const host = 'danielellisresearch.com';
   const menu = [
@@ -79,12 +75,14 @@
       name: ' Contact',
       icon: 'mail',
     }, // cv
-  ]
+  ];
 
-
-  
   onMount(() => {
-    mobile = navigator.userAgentData.mobile;
+    try {
+      mobile = navigator.userAgentData.mobile;
+    } catch (err) {
+      mobile = w < 600;
+    }
     // console.error(mobile,'mobile')
     // console.log(header);
     sticky = header.offsetTop;
@@ -94,13 +92,18 @@
       '[]{[--]}  d|2a|1n|3i|2e|2l|1 |1e|2l|0l|3i|1[++]s|1   [ []]';
     // '[]{} §0d|3a|1n|0[--]i|2e|1l|1 |0e|2l|1l|3i|1s|3[+]';
   });
-
-
 </script>
 
 <svelte:head>
   <!-- load the font early  -->
-  <link rel="preload" href="/Datalegreya-Dot.woff2"  type="font/woff" crossorigin/>
+  <link
+    rel="stylesheet"
+    href="/Datalegreya-Dot.woff2"
+    as="font"
+    type="font/woff"
+    crossorigin="anonymous"
+  />
+  <!--  add above to layout  -->
   <!-- as="Datalegreya-Dot" -->
 
   <title>Daniel Ellis Research</title>
@@ -131,10 +134,10 @@
         style="float:left!important;"
         class:head={mobile}
       >
-        <div id="logo" class="logo" class:top={mobile} style={fstyle}>Daniel Ellis Research</div>
+        <div id="logo" class="logo" class:top={mobile} style={fstyle}>
+          
+        </div>
       </a>
-
-
 
       <!-- {#if w > 660} -->
       <div
@@ -148,34 +151,38 @@
             iconDescription={link.name}
             href={link.href}
             disabled={link.disabled}
-            ><img src={'/icons/'+link.icon+'.svg'} class="material-symbols-outlined">
-              <!-- {link.icon || 'rocket_launch'} -->
-              <!-- rocket_launch -->
-  </Button
-          >
+            ><img
+              src={'/icons/' + link.icon + '.svg'}
+              class="material-symbols-outlined"
+            />
+            <!-- {link.icon || 'rocket_launch'} -->
+            <!-- rocket_launch -->
+          </Button>
         {/each}
 
         {#if !mobile}
-        <Button
-          style="width:auto;"
-          kind="ghost"
-          iconDescription="Toggle Nav"
-          href={'#'}
-          id="nav-toggles"
-          on:click={function (d) {
-            document.getElementById('nav-menu').classList.toggle('active');
-            document.getElementById('mainBox').classList.toggle('fixed');
-            open = document
-              .getElementById('nav-menu')
-              .classList.contains('active');
-            // console.error('ppp', document.getElementById('nav-menu').classList);
-          }}
-          ><img class="material-symbols-outlined" src='/icons/menu.svg' style='stroke: #78a9ff!important;'>
-            
+          <Button
+            style="width:auto;"
+            kind="ghost"
+            iconDescription="Toggle Nav"
+            href={'#'}
+            id="nav-toggles"
+            on:click={function (d) {
+              document.getElementById('nav-menu').classList.toggle('active');
+              document.getElementById('mainBox').classList.toggle('fixed');
+              open = document
+                .getElementById('nav-menu')
+                .classList.contains('active');
+              // console.error('ppp', document.getElementById('nav-menu').classList);
+            }}
+            ><img
+              class="material-symbols-outlined"
+              src="/icons/menu.svg"
+              style="stroke: #78a9ff!important;"
+            />
+
             <!-- rocket_launch -->
-         </Button
-        >
- 
+          </Button>
         {/if}
       </div>
 
@@ -188,21 +195,22 @@
 </main>
 
 <style>
-  @font-face {
+  /* @font-face {
     font-family: 'Datalegreya-Dot';
     src: url('/Datalegreya-Dot.woff2');
     font-weight: normal;
     font-style: normal;
-  }
+    font-display: swap;
+  } */
 
   danheader {
     z-index: 999999 !important;
   }
 
-  .top{
-    top:-1.2em!important;
-    position:absolute;
-    display:block;
+  .top {
+    top: -1.2em !important;
+    position: absolute;
+    display: block;
   }
   :global(a#nav-toggles) {
     backdrop-filter: blur(10px);
@@ -228,7 +236,7 @@
     clear: both !important;
     display: block !important;
     position: fixed !important;
-    
+
     bottom: calc(100vh-3.5em) !important;
     /* bottom:.5em!important; */
     width: 100% !important;
@@ -248,9 +256,13 @@
     width: 100%;
   }
 
-  .material-symbols-outlined{
-    fill:red;
-    width:100%;
-    height:24px;
+  .material-symbols-outlined {
+    fill: red;
+    width: 100%;
+    height: 24px;
+  }
+
+  .logo {
+    font-family: Datalegreya-Dot !important;
   }
 </style>
