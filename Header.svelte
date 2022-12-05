@@ -127,7 +127,7 @@
       class:sticky={scrollY > sticky}
       id="mainHeader"
       bind:this={header}
-      style={'height:3.5em;' + bstyle}
+      style={'height:2.75rem;' + bstyle}
     >
       <a
         href="https://danielellisresearch.com"
@@ -141,7 +141,7 @@
 
       <!-- {#if w > 660} -->
       <div
-        style={'float:right;display:inline-block;' + bstyle}
+        style={'float:right;display:inline-block;height:2rem' + bstyle}
         class:footer={mobile}
       >
         {#each menu as link}
@@ -168,11 +168,15 @@
             href={'#'}
             id="nav-toggles"
             on:click={function (d) {
-              document.getElementById('nav-menu').classList.toggle('active');
-              document.getElementById('mainBox').classList.toggle('fixed');
-              open = document
-                .getElementById('nav-menu')
-                .classList.contains('active');
+
+              alert('Navigation menu temporarily disabled. ')
+
+              // document.getElementById('nav-menu').classList.toggle('active');
+              // document.getElementById('mainBox').classList.toggle('fixed');
+              // open = document
+              //   .getElementById('nav-menu')
+              //   .classList.contains('active');
+
               // console.error('ppp', document.getElementById('nav-menu').classList);
             }}
             ><img
@@ -259,10 +263,12 @@
   .material-symbols-outlined {
     fill: red;
     width: 100%;
-    height: 24px;
+    height: 1.5rem;
   }
 
-  .logo {
+  :global(#logo) {
+    font-size:2.5rem!important;
+    top:-.25rem!important;
     font-family: Datalegreya-Dot !important;
   }
 </style>
